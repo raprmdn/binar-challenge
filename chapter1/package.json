@@ -1,0 +1,14 @@
+{
+  "name": "chapter1",
+  "version": "1.0.0",
+  "description": "Calculator App",
+  "main": "challenge/app.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "Rafi Putra Ramadhan",
+  "license": "ISC",
+  "dependencies": {
+    "inquirer": "^8.0.0"
+  }
+}
