@@ -24,9 +24,9 @@ app.get('/', (req, res) => {
             url: null
         },
         simple_docs: {
-            message: "Please refer to the README.md file in the repository",
-            gitlab_url: null,
-            github_url: null,
+            message: "Please refer to the README.md file in the repository. (Navigate Link not working in GitLab)",
+            gitlab_url: "https://gitlab.com/raprmdn/binar-challenge/-/blob/master/chapter4/README.md",
+            github_url: "https://github.com/raprmdn/binar-challenge/blob/master/chapter4/README.md"
         },
     });
 });
