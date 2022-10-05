@@ -18,7 +18,7 @@ app.use('/api', routes);
 app.get('/', (req, res) => {
     res.status(200).json({
         success: true,
-        message: "Welcome to Chapter 4 - Binar Challenge - ExpressJS RESTful API CRUD",
+        message: "Welcome to Chapter 5 - Binar Challenge - ExpressJS RESTful API CRUD - Postman Collection Documentation",
         swagger_docs: {
             message: "Not available yet",
             url: null
@@ -28,6 +28,11 @@ app.get('/', (req, res) => {
             gitlab_url: "https://gitlab.com/raprmdn/binar-challenge/-/blob/master/chapter4/README.md",
             github_url: "https://github.com/raprmdn/binar-challenge/blob/master/chapter4/README.md"
         },
+        postman_collection_docs: {
+            message: "Postman Collection API Documentation",
+            generate_collection: "npm run generate:collection",
+            url: null
+        }
     });
 });
 

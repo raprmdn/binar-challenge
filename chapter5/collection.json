@@ -1,0 +1,230 @@
+{
+  "item": [
+    {
+      "id": "287158e5-bcab-4c76-bff8-b2bef9d13fc2",
+      "name": "Authentication Collection Endpoint",
+      "description": {
+        "content": "Authentication API Collection",
+        "type": "text/plain"
+      },
+      "item": [
+        {
+          "id": "d9d8868c-7df9-4905-889f-085223831f59",
+          "name": "Register",
+          "request": {
+            "description": {
+              "content": "Register a new user",
+              "type": "text/plain"
+            },
+            "url": {
+              "protocol": "http",
+              "port": "5000",
+              "path": [
+                "api",
+                "auth",
+                "register"
+              ],
+              "host": [
+                "localhost"
+              ],
+              "query": [],
+              "variable": []
+            },
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "cache-control",
+                "value": "no-cache"
+              }
+            ],
+            "method": "POST",
+            "body": {
+              "mode": "raw",
+              "raw": "{\"name\":\"Rafi Putra Ramadhan\",\"username\":\"raprmdn\",\"email\":\"raprmdn@gmail.com\",\"password\":\"Abc123456!\",\"password_confirmation\":\"Abc123456!\"}"
+            }
+          },
+          "response": [],
+          "event": []
+        },
+        {
+          "id": "6d4d50ca-182f-4546-b9e5-b0b3c88ca3f7",
+          "name": "Login",
+          "request": {
+            "description": {
+              "content": "Login to get token",
+              "type": "text/plain"
+            },
+            "url": {
+              "protocol": "http",
+              "port": "5000",
+              "path": [
+                "api",
+                "auth",
+                "login"
+              ],
+              "host": [
+                "localhost"
+              ],
+              "query": [],
+              "variable": []
+            },
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "cache-control",
+                "value": "no-cache"
+              }
+            ],
+            "method": "POST",
+            "body": {
+              "mode": "raw",
+              "raw": "{\"email\":\"raprmdn@gmail.com\",\"password\":\"Abc123456!\"}"
+            }
+          },
+          "response": [],
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "id": "65eb3779-2e0a-4f30-a353-e691f7ed5787",
+                "type": "text/javascript",
+                "exec": [
+                  "",
+                  "if (pm.response.code === 200) {",
+                  "    pm.environment.set(\"token\", pm.response.json().data.user.token);",
+                  "}",
+                  ""
+                ]
+              }
+            }
+          ]
+        },
+        {
+          "id": "6f7502a8-24e6-4989-837c-76f0fbe0e83c",
+          "name": "Get Authenticated User",
+          "request": {
+            "description": {
+              "content": "Get authenticated user",
+              "type": "text/plain"
+            },
+            "url": {
+              "protocol": "http",
+              "port": "5000",
+              "path": [
+                "api",
+                "auth",
+                "me"
+              ],
+              "host": [
+                "localhost"
+              ],
+              "query": [],
+              "variable": []
+            },
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "cache-control",
+                "value": "no-cache"
+              }
+            ],
+            "method": "GET",
+            "auth": {
+              "type": "bearer",
+              "bearer": [
+                {
+                  "type": "any",
+                  "value": "{{token}}",
+                  "key": "token"
+                }
+              ]
+            }
+          },
+          "response": [],
+          "event": []
+        },
+        {
+          "id": "19d1df71-3ff6-43e7-bcc1-46ea6ba52fd6",
+          "name": "Change Password",
+          "request": {
+            "description": {
+              "content": "Change password",
+              "type": "text/plain"
+            },
+            "url": {
+              "protocol": "http",
+              "port": "5000",
+              "path": [
+                "api",
+                "auth",
+                "change-password"
+              ],
+              "host": [
+                "localhost"
+              ],
+              "query": [],
+              "variable": []
+            },
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "cache-control",
+                "value": "no-cache"
+              }
+            ],
+            "method": "PATCH",
+            "body": {
+              "mode": "raw",
+              "raw": "{\"current_password\":\"Abc123456!\",\"new_password\":\"Abc123456!\",\"password_confirmation\":\"Abc123456!\"}"
+            },
+            "auth": {
+              "type": "bearer",
+              "bearer": [
+                {
+                  "type": "any",
+                  "value": "{{token}}",
+                  "key": "token"
+                }
+              ]
+            }
+          },
+          "response": [],
+          "event": []
+        }
+      ],
+      "event": []
+    }
+  ],
+  "event": [],
+  "variable": [],
+  "info": {
+    "_postman_id": "2b732b40-eeb1-42f1-addb-2bd8255e23b6",
+    "name": "Binar Challenge - ExpressJS RESTful API CRUD - Postman Collection - Chapter 5",
+    "version": {
+      "raw": "1.0.0",
+      "major": 1,
+      "minor": 0,
+      "patch": 0,
+      "prerelease": [],
+      "build": [],
+      "string": "1.0.0"
+    },
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+    "description": {
+      "content": "Postman Collection API Documentation",
+      "type": "text/plain"
+    }
+  }
+}

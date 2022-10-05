@@ -5,7 +5,8 @@
   "main": "index.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
-    "dev": "nodemon src/index.js"
+    "dev": "nodemon src/index.js",
+    "generate:collection": "node src/utils/postmanCollection.utils.js"
   },
   "keywords": [
     "NodeJS",
@@ -25,6 +26,7 @@
     "joi-password-complexity": "^5.1.0",
     "jsonwebtoken": "^8.5.1",
     "pg": "^8.8.0",
+    "postman-collection": "^4.1.5",
     "sequelize": "^6.23.0"
   },
   "devDependencies": {
