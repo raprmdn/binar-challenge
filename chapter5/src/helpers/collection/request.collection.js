@@ -11,6 +11,7 @@ const {
     requestCharacterLeaveFamily, requestCharacterGainedExp,
     requestCharacterLevelUp, requestDeleteCharacter
 } = require('./characters.collection');
+const { requestGetUserCharactersHistories } = require('./history.collection');
 
 module.exports = {
     authGroup: new ItemGroup({
@@ -39,6 +40,13 @@ module.exports = {
             requestCharacterGainedExp,
             requestCharacterLevelUp,
             requestDeleteCharacter
+        ]
+    }),
+    historiesGroup: new ItemGroup({
+        name: 'Histories Collection Endpoint',
+        description: 'Histories / User Game History API Collection',
+        item: [
+            requestGetUserCharactersHistories
         ]
     })
 }

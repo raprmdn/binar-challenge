@@ -1,6 +1,6 @@
 const { Collection } = require('postman-collection');
 const fs = require('fs');
-const { authGroup, charactersGroup } = require('../helpers/collection/request.collection');
+const { authGroup, charactersGroup, historiesGroup } = require('../helpers/collection/request.collection');
 
 const postmanCollection = new Collection({
     info: {
@@ -10,7 +10,8 @@ const postmanCollection = new Collection({
     },
     item: [
         authGroup,
-        charactersGroup
+        charactersGroup,
+        historiesGroup
     ]
 });
 
