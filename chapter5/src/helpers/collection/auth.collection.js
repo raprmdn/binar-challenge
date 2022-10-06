@@ -12,6 +12,12 @@ if (pm.response.code === 200) {
 }
 `;
 
+const removeToken = `
+if (pm.response.code === 200) {
+    pm.environment.set("token", "");
+}
+`;
+
 const register = {
     name: 'Register',
     method: 'POST',
@@ -56,6 +62,13 @@ const changePassword = {
     }
 }
 
+const logout = {
+    name: 'Logout',
+    method: 'POST',
+    url: `${baseURL}/api/auth/logout`,
+    header: header
+}
+
 module.exports = {
     requestRegister: new Item({
         name: register.name,
@@ -80,7 +93,7 @@ module.exports = {
                 mode: 'raw',
                 raw: JSON.stringify(login.payload)
             },
-            description: 'Login to get token',
+            description: 'Login to get token. Token will automatically set to environment variable.',
         },
         event: [
             {
@@ -131,5 +144,32 @@ module.exports = {
                 ]
             }
         }
-    })
+    }),
+    requestLogout: new Item({
+        name: logout.name,
+        request: {
+            url: logout.url,
+            header: logout.header,
+            method: logout.method,
+            description: 'Logout. Token will automatically removed from environment variable.',
+            auth: {
+                type: 'bearer',
+                bearer: [
+                    {
+                        key: 'token',
+                        value: '{{token}}',
+                    }
+                ]
+            }
+        },
+        event: [
+            {
+                listen: 'test',
+                script: {
+                    type: 'text/javascript',
+                    exec: removeToken
+                }
+            }
+        ]
+    }),
 }

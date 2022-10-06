@@ -1,7 +1,7 @@
 {
   "item": [
     {
-      "id": "7940ec35-10d5-484d-8b02-b551a9590ba9",
+      "id": "fe69643d-a1f4-46f7-8818-bcb446884324",
       "name": "Authentication Collection Endpoint",
       "description": {
         "content": "Authentication API Collection",
@@ -9,7 +9,7 @@
       },
       "item": [
         {
-          "id": "fdcd7b33-3a6f-410e-8010-71c28dd47992",
+          "id": "dfa7968a-a190-4d2b-927c-cd7bc180b338",
           "name": "Register",
           "request": {
             "description": {
@@ -50,11 +50,11 @@
           "event": []
         },
         {
-          "id": "13ba2bc7-42ff-4390-b814-dee831413699",
+          "id": "8f898bf5-7081-486e-ae8d-272873c6bb44",
           "name": "Login",
           "request": {
             "description": {
-              "content": "Login to get token",
+              "content": "Login to get token. Token will automatically set to environment variable.",
               "type": "text/plain"
             },
             "url": {
@@ -92,7 +92,7 @@
             {
               "listen": "test",
               "script": {
-                "id": "0e636caf-8a82-4331-8d4b-1f32eef648de",
+                "id": "829ad072-ae9a-4cf0-ac4e-d8a14ed79202",
                 "type": "text/javascript",
                 "exec": [
                   "",
@@ -106,7 +106,7 @@
           ]
         },
         {
-          "id": "b1da87cf-2c9c-4012-b6a4-f8d67dec65b0",
+          "id": "68e467a4-c991-4417-b25b-41bb6387f2ec",
           "name": "Get Authenticated User",
           "request": {
             "description": {
@@ -153,7 +153,7 @@
           "event": []
         },
         {
-          "id": "c9d49fcd-c476-4614-9ef7-5cfa0f190915",
+          "id": "e59898ca-1e11-49b5-b5d0-bbe19b98863f",
           "name": "Change Password",
           "request": {
             "description": {
@@ -202,12 +202,74 @@
           },
           "response": [],
           "event": []
+        },
+        {
+          "id": "211e3ec4-24fc-4c14-83ac-ca02ae060ada",
+          "name": "Logout",
+          "request": {
+            "description": {
+              "content": "Logout. Token will automatically removed from environment variable.",
+              "type": "text/plain"
+            },
+            "url": {
+              "protocol": "http",
+              "port": "5000",
+              "path": [
+                "api",
+                "auth",
+                "logout"
+              ],
+              "host": [
+                "localhost"
+              ],
+              "query": [],
+              "variable": []
+            },
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "cache-control",
+                "value": "no-cache"
+              }
+            ],
+            "method": "POST",
+            "auth": {
+              "type": "bearer",
+              "bearer": [
+                {
+                  "type": "any",
+                  "value": "{{token}}",
+                  "key": "token"
+                }
+              ]
+            }
+          },
+          "response": [],
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "id": "52884436-1f21-4fa5-83e9-b848927ab6ca",
+                "type": "text/javascript",
+                "exec": [
+                  "",
+                  "if (pm.response.code === 200) {",
+                  "    pm.environment.set(\"token\", \"\");",
+                  "}",
+                  ""
+                ]
+              }
+            }
+          ]
         }
       ],
       "event": []
     },
     {
-      "id": "032105ad-48bd-4b29-94a0-3d6fca65f119",
+      "id": "ddd2986b-d82c-47f1-a234-030ef0a4b1a5",
       "name": "Characters Collection Endpoint",
       "description": {
         "content": "Characters / User Game Biodata API Collection",
@@ -215,7 +277,7 @@
       },
       "item": [
         {
-          "id": "d747da65-14f0-436a-a230-db61a48a070f",
+          "id": "adf815c6-ca91-46b3-b695-1cfb97e06628",
           "name": "Get User Characters",
           "request": {
             "description": {
@@ -261,7 +323,7 @@
           "event": []
         },
         {
-          "id": "afef7c8b-d64f-4a6b-a76f-4099330617f2",
+          "id": "c1e972e9-642b-402f-a285-67e176aa3be6",
           "name": "Create Character",
           "request": {
             "description": {
@@ -311,7 +373,7 @@
           "event": []
         },
         {
-          "id": "5de6e9b8-8ad1-433e-9dab-73b800145bae",
+          "id": "4cd65f8a-d59f-47e6-a89e-d181c4534644",
           "name": "Change Character Nickname",
           "request": {
             "description": {
@@ -369,7 +431,7 @@
           "event": []
         },
         {
-          "id": "3f318559-a739-4861-a374-9c6282250d50",
+          "id": "ce6856f0-ce1c-4347-bd76-2b86479155f8",
           "name": "Character Join Guild",
           "request": {
             "description": {
@@ -427,7 +489,7 @@
           "event": []
         },
         {
-          "id": "a0af951e-35c3-41f2-abed-708de1d14b9f",
+          "id": "7af7b425-115c-4c37-aa1d-ab65429438ec",
           "name": "Character Change Guild",
           "request": {
             "description": {
@@ -485,7 +547,7 @@
           "event": []
         },
         {
-          "id": "221b4fdf-3015-474a-a9b3-05e8f801bbd3",
+          "id": "fbf7edb4-0562-4ee7-ab9d-ca5312e6db64",
           "name": "Character Leave Guild",
           "request": {
             "description": {
@@ -539,7 +601,7 @@
           "event": []
         },
         {
-          "id": "e4b731b0-0c94-4c81-8685-78a370e23c75",
+          "id": "cf9b10f6-97aa-4c2d-8860-61358d082b84",
           "name": "Character Join Family",
           "request": {
             "description": {
@@ -597,7 +659,7 @@
           "event": []
         },
         {
-          "id": "8c0e16a1-e728-43d8-a236-1068963d5765",
+          "id": "56e142aa-46fa-41df-b9c6-be3cae46577b",
           "name": "Character Change Family",
           "request": {
             "description": {
@@ -655,7 +717,7 @@
           "event": []
         },
         {
-          "id": "16437ed3-df3a-48ac-b8ce-62d4e2fe7658",
+          "id": "b8624614-b7bc-448d-951c-c459c9df0940",
           "name": "Character Leave Family",
           "request": {
             "description": {
@@ -709,7 +771,7 @@
           "event": []
         },
         {
-          "id": "35f0bb18-41b0-4b94-8a78-d3b5953235be",
+          "id": "e38542cd-4f93-45d8-99c2-574bfee5e5ab",
           "name": "Character Gained Exp",
           "request": {
             "description": {
@@ -767,7 +829,7 @@
           "event": []
         },
         {
-          "id": "4bb14bc0-82d0-472c-8c16-77da6207599d",
+          "id": "901a7dcc-78cc-49d2-b83e-0abd801498a4",
           "name": "Character Level Up",
           "request": {
             "description": {
@@ -821,7 +883,7 @@
           "event": []
         },
         {
-          "id": "5eb1ed1d-ae83-4e59-8863-fa89941fcbd6",
+          "id": "0e429104-9d6c-4bd2-ac38-566fdc21ed7b",
           "name": "User Delete Character",
           "request": {
             "description": {
@@ -878,7 +940,7 @@
       "event": []
     },
     {
-      "id": "ad3d52a2-d9ca-4fa9-ba85-ed939405e7d6",
+      "id": "d2df82c7-e592-4a14-9ad3-8300809e0d13",
       "name": "Histories Collection Endpoint",
       "description": {
         "content": "Histories / User Game History API Collection",
@@ -886,7 +948,7 @@
       },
       "item": [
         {
-          "id": "854053a0-91de-4836-8283-329196a63fde",
+          "id": "5b4790e2-982a-4a67-a338-cfdfd92f1a98",
           "name": "Get User Characters Histories",
           "request": {
             "description": {},
@@ -935,7 +997,7 @@
   "event": [],
   "variable": [],
   "info": {
-    "_postman_id": "d3fcf56d-ad48-4637-8910-ae8de732c0ac",
+    "_postman_id": "ded42ef2-77da-4345-ab76-34729e26c96c",
     "name": "Binar Challenge - ExpressJS RESTful API CRUD - Postman Collection - Chapter 5",
     "version": {
       "raw": "1.0.0",

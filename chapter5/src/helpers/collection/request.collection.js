@@ -1,7 +1,7 @@
 const { ItemGroup } = require('postman-collection');
 const {
     requestRegister, requestLogin,
-    requestMe, requestChangePassword
+    requestMe, requestChangePassword, requestLogout
 } = require('./auth.collection');
 const {
     requestGetCharacters, requestCreateCharacter,
@@ -21,7 +21,8 @@ module.exports = {
             requestRegister,
             requestLogin,
             requestMe,
-            requestChangePassword
+            requestChangePassword,
+            requestLogout
         ]
     }),
     charactersGroup: new ItemGroup({
