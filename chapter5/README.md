@@ -1,6 +1,19 @@
-## Binar Chapter 4 - Challenge
+## Binar Chapter 5 - Challenge
 
-- ExpressJS - RESTful API - CRUD
+- ExpressJS - RESTful API - CRUD - Postman Collection Docs
+
+## Postman Collection API Documentation
+Generate Postman Collection API:
+- Import file `collection.js` to Postman.
+
+Optional:
+```bash
+> npm run generate:collection
+```
+then import file `collection.json` to Postman.
+
+Online Documentation:
+- [Postman Collection API Documentation](https://documenter.getpostman.com/view/13401148/2s83zdxShm)
 
 ## Simple Docs
 

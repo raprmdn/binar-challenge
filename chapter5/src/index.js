@@ -31,7 +31,7 @@ app.get('/', (req, res) => {
         postman_collection_docs: {
             message: "Postman Collection API Documentation",
             generate_collection: "npm run generate:collection",
-            url: null
+            url: "https://documenter.getpostman.com/view/13401148/2s83zdxShm"
         }
     });
 });
