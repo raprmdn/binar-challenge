@@ -109,7 +109,11 @@ module.exports = {
         name: me.name,
         request: {
             url: me.url,
-            header: me.header,
+            header: [
+                { key: 'Content-Type', value: 'application/json' },
+                { key: 'cache-control', value: 'no-cache' },
+                { key: 'Authorization', value: '{{token}}' }
+            ],
             method: me.method,
             description: 'Get authenticated user',
             auth: {

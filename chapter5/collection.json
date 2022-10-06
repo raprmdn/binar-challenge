@@ -1,7 +1,7 @@
 {
   "item": [
     {
-      "id": "fe69643d-a1f4-46f7-8818-bcb446884324",
+      "id": "0752af3e-e280-4d6b-8de4-72011fce1ff1",
       "name": "Authentication Collection Endpoint",
       "description": {
         "content": "Authentication API Collection",
@@ -9,7 +9,7 @@
       },
       "item": [
         {
-          "id": "dfa7968a-a190-4d2b-927c-cd7bc180b338",
+          "id": "66017ad5-2e04-4692-9ace-5f17a191df7f",
           "name": "Register",
           "request": {
             "description": {
@@ -50,7 +50,7 @@
           "event": []
         },
         {
-          "id": "8f898bf5-7081-486e-ae8d-272873c6bb44",
+          "id": "10da199e-5f79-4182-ae24-fd360af45455",
           "name": "Login",
           "request": {
             "description": {
@@ -92,7 +92,7 @@
             {
               "listen": "test",
               "script": {
-                "id": "829ad072-ae9a-4cf0-ac4e-d8a14ed79202",
+                "id": "583129aa-83bb-484a-8d49-3a3f317b9c30",
                 "type": "text/javascript",
                 "exec": [
                   "",
@@ -106,7 +106,7 @@
           ]
         },
         {
-          "id": "68e467a4-c991-4417-b25b-41bb6387f2ec",
+          "id": "16b58ab7-1ed8-4358-a3f3-c9e1b2b72059",
           "name": "Get Authenticated User",
           "request": {
             "description": {
@@ -135,6 +135,10 @@
               {
                 "key": "cache-control",
                 "value": "no-cache"
+              },
+              {
+                "key": "Authorization",
+                "value": "{{token}}"
               }
             ],
             "method": "GET",
@@ -153,7 +157,7 @@
           "event": []
         },
         {
-          "id": "e59898ca-1e11-49b5-b5d0-bbe19b98863f",
+          "id": "375d9006-bc3b-44c4-99da-906859cd3286",
           "name": "Change Password",
           "request": {
             "description": {
@@ -204,7 +208,7 @@
           "event": []
         },
         {
-          "id": "211e3ec4-24fc-4c14-83ac-ca02ae060ada",
+          "id": "4d319e86-0d8d-400d-9be6-a41a915e2c9d",
           "name": "Logout",
           "request": {
             "description": {
@@ -252,7 +256,7 @@
             {
               "listen": "test",
               "script": {
-                "id": "52884436-1f21-4fa5-83e9-b848927ab6ca",
+                "id": "852054cd-e339-4f73-8ff3-e5196e8f3b67",
                 "type": "text/javascript",
                 "exec": [
                   "",
@@ -269,7 +273,7 @@
       "event": []
     },
     {
-      "id": "ddd2986b-d82c-47f1-a234-030ef0a4b1a5",
+      "id": "b8ea1d72-a9d2-402a-bb33-808f168cc106",
       "name": "Characters Collection Endpoint",
       "description": {
         "content": "Characters / User Game Biodata API Collection",
@@ -277,7 +281,7 @@
       },
       "item": [
         {
-          "id": "adf815c6-ca91-46b3-b695-1cfb97e06628",
+          "id": "afc18f00-d8cc-4701-af99-b0c34dc36b7c",
           "name": "Get User Characters",
           "request": {
             "description": {
@@ -305,6 +309,10 @@
               {
                 "key": "cache-control",
                 "value": "no-cache"
+              },
+              {
+                "key": "Authorization",
+                "value": "{{token}}"
               }
             ],
             "method": "GET",
@@ -323,7 +331,7 @@
           "event": []
         },
         {
-          "id": "c1e972e9-642b-402f-a285-67e176aa3be6",
+          "id": "db15ad57-02b1-4508-99a3-9a1b7355dd2c",
           "name": "Create Character",
           "request": {
             "description": {
@@ -351,6 +359,10 @@
               {
                 "key": "cache-control",
                 "value": "no-cache"
+              },
+              {
+                "key": "Authorization",
+                "value": "{{token}}"
               }
             ],
             "method": "POST",
@@ -373,7 +385,7 @@
           "event": []
         },
         {
-          "id": "4cd65f8a-d59f-47e6-a89e-d181c4534644",
+          "id": "ba6437b1-9d10-42b5-8dc7-3372d05904ea",
           "name": "Change Character Nickname",
           "request": {
             "description": {
@@ -409,6 +421,10 @@
               {
                 "key": "cache-control",
                 "value": "no-cache"
+              },
+              {
+                "key": "Authorization",
+                "value": "{{token}}"
               }
             ],
             "method": "PATCH",
@@ -431,7 +447,7 @@
           "event": []
         },
         {
-          "id": "ce6856f0-ce1c-4347-bd76-2b86479155f8",
+          "id": "5c5029b0-f870-4813-891a-265fceb66606",
           "name": "Character Join Guild",
           "request": {
             "description": {
@@ -467,6 +483,10 @@
               {
                 "key": "cache-control",
                 "value": "no-cache"
+              },
+              {
+                "key": "Authorization",
+                "value": "{{token}}"
               }
             ],
             "method": "PATCH",
@@ -489,7 +509,7 @@
           "event": []
         },
         {
-          "id": "7af7b425-115c-4c37-aa1d-ab65429438ec",
+          "id": "63beebd4-389c-443a-a722-d0c12ced840a",
           "name": "Character Change Guild",
           "request": {
             "description": {
@@ -525,6 +545,10 @@
               {
                 "key": "cache-control",
                 "value": "no-cache"
+              },
+              {
+                "key": "Authorization",
+                "value": "{{token}}"
               }
             ],
             "method": "PATCH",
@@ -547,7 +571,7 @@
           "event": []
         },
         {
-          "id": "fbf7edb4-0562-4ee7-ab9d-ca5312e6db64",
+          "id": "3c7f50f3-cef6-49e0-b2d4-330a4caf98a6",
           "name": "Character Leave Guild",
           "request": {
             "description": {
@@ -583,6 +607,10 @@
               {
                 "key": "cache-control",
                 "value": "no-cache"
+              },
+              {
+                "key": "Authorization",
+                "value": "{{token}}"
               }
             ],
             "method": "DELETE",
@@ -601,7 +629,7 @@
           "event": []
         },
         {
-          "id": "cf9b10f6-97aa-4c2d-8860-61358d082b84",
+          "id": "d4a3e37b-657d-4bc1-9c7b-3d7250eed837",
           "name": "Character Join Family",
           "request": {
             "description": {
@@ -637,6 +665,10 @@
               {
                 "key": "cache-control",
                 "value": "no-cache"
+              },
+              {
+                "key": "Authorization",
+                "value": "{{token}}"
               }
             ],
             "method": "PATCH",
@@ -659,7 +691,7 @@
           "event": []
         },
         {
-          "id": "56e142aa-46fa-41df-b9c6-be3cae46577b",
+          "id": "198486fd-1152-4825-a942-5f50c7f4f502",
           "name": "Character Change Family",
           "request": {
             "description": {
@@ -695,6 +727,10 @@
               {
                 "key": "cache-control",
                 "value": "no-cache"
+              },
+              {
+                "key": "Authorization",
+                "value": "{{token}}"
               }
             ],
             "method": "PATCH",
@@ -717,7 +753,7 @@
           "event": []
         },
         {
-          "id": "b8624614-b7bc-448d-951c-c459c9df0940",
+          "id": "2fb5a324-80f2-4dc1-b388-330e0eb867f1",
           "name": "Character Leave Family",
           "request": {
             "description": {
@@ -753,6 +789,10 @@
               {
                 "key": "cache-control",
                 "value": "no-cache"
+              },
+              {
+                "key": "Authorization",
+                "value": "{{token}}"
               }
             ],
             "method": "DELETE",
@@ -771,7 +811,7 @@
           "event": []
         },
         {
-          "id": "e38542cd-4f93-45d8-99c2-574bfee5e5ab",
+          "id": "7f14c074-d80c-457d-908b-672fe8644c23",
           "name": "Character Gained Exp",
           "request": {
             "description": {
@@ -807,6 +847,10 @@
               {
                 "key": "cache-control",
                 "value": "no-cache"
+              },
+              {
+                "key": "Authorization",
+                "value": "{{token}}"
               }
             ],
             "method": "PATCH",
@@ -829,7 +873,7 @@
           "event": []
         },
         {
-          "id": "901a7dcc-78cc-49d2-b83e-0abd801498a4",
+          "id": "5af5ea35-c161-422f-a923-cf840afa08dc",
           "name": "Character Level Up",
           "request": {
             "description": {
@@ -865,6 +909,10 @@
               {
                 "key": "cache-control",
                 "value": "no-cache"
+              },
+              {
+                "key": "Authorization",
+                "value": "{{token}}"
               }
             ],
             "method": "PATCH",
@@ -883,7 +931,7 @@
           "event": []
         },
         {
-          "id": "0e429104-9d6c-4bd2-ac38-566fdc21ed7b",
+          "id": "140dc800-8268-4646-9b47-ca2864db6fbc",
           "name": "User Delete Character",
           "request": {
             "description": {
@@ -919,6 +967,10 @@
               {
                 "key": "cache-control",
                 "value": "no-cache"
+              },
+              {
+                "key": "Authorization",
+                "value": "{{token}}"
               }
             ],
             "method": "DELETE",
@@ -940,7 +992,7 @@
       "event": []
     },
     {
-      "id": "d2df82c7-e592-4a14-9ad3-8300809e0d13",
+      "id": "918fe804-255f-4887-9ccb-226e5b040a0b",
       "name": "Histories Collection Endpoint",
       "description": {
         "content": "Histories / User Game History API Collection",
@@ -948,7 +1000,7 @@
       },
       "item": [
         {
-          "id": "5b4790e2-982a-4a67-a338-cfdfd92f1a98",
+          "id": "69898db2-8b8e-460b-b356-af582108b1c1",
           "name": "Get User Characters Histories",
           "request": {
             "description": {},
@@ -973,6 +1025,10 @@
               {
                 "key": "cache-control",
                 "value": "no-cache"
+              },
+              {
+                "key": "Authorization",
+                "value": "{{token}}"
               }
             ],
             "method": "GET",
@@ -997,7 +1053,7 @@
   "event": [],
   "variable": [],
   "info": {
-    "_postman_id": "ded42ef2-77da-4345-ab76-34729e26c96c",
+    "_postman_id": "252ae5c8-ebb6-44d1-994f-44e99f518050",
     "name": "Binar Challenge - ExpressJS RESTful API CRUD - Postman Collection - Chapter 5",
     "version": {
       "raw": "1.0.0",

@@ -3,7 +3,8 @@ const baseURL = 'http://localhost:5000';
 
 const header = [
     { key: 'Content-Type', value: 'application/json' },
-    { key: 'cache-control', value: 'no-cache' }
+    { key: 'cache-control', value: 'no-cache' },
+    { key: 'Authorization', value: '{{token}}' }
 ];
 
 const getUserCharactersHistories = {
