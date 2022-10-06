@@ -1,7 +1,6 @@
 const { Collection } = require('postman-collection');
 const fs = require('fs');
-const { authGroup } = require('../helpers/collection/request.collection');
-
+const { authGroup, charactersGroup } = require('../helpers/collection/request.collection');
 
 const postmanCollection = new Collection({
     info: {
@@ -10,7 +9,8 @@ const postmanCollection = new Collection({
         description: 'Postman Collection API Documentation',
     },
     item: [
-        authGroup
+        authGroup,
+        charactersGroup
     ]
 });
 
@@ -18,5 +18,5 @@ const collectionJSON = postmanCollection.toJSON();
 
 fs.writeFile('./collection.json', JSON.stringify(collectionJSON, null, 2), (err) => {
     if (err) { console.log(err); }
-    console.log('Collection successfully generated.');
+    console.log('Collection generated successfully.');
 });

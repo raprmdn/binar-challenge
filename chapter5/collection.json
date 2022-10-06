@@ -1,7 +1,7 @@
 {
   "item": [
     {
-      "id": "287158e5-bcab-4c76-bff8-b2bef9d13fc2",
+      "id": "b26a4881-88c4-414f-ac0f-84fdd554b372",
       "name": "Authentication Collection Endpoint",
       "description": {
         "content": "Authentication API Collection",
@@ -9,7 +9,7 @@
       },
       "item": [
         {
-          "id": "d9d8868c-7df9-4905-889f-085223831f59",
+          "id": "0167c893-56a5-4dd7-a39b-e4df7ce620d3",
           "name": "Register",
           "request": {
             "description": {
@@ -50,7 +50,7 @@
           "event": []
         },
         {
-          "id": "6d4d50ca-182f-4546-b9e5-b0b3c88ca3f7",
+          "id": "796a67d5-a9f1-4738-ab1c-010c038c1f74",
           "name": "Login",
           "request": {
             "description": {
@@ -92,7 +92,7 @@
             {
               "listen": "test",
               "script": {
-                "id": "65eb3779-2e0a-4f30-a353-e691f7ed5787",
+                "id": "c14d42de-dece-4ea8-86f0-88f9cfc0c4c7",
                 "type": "text/javascript",
                 "exec": [
                   "",
@@ -106,7 +106,7 @@
           ]
         },
         {
-          "id": "6f7502a8-24e6-4989-837c-76f0fbe0e83c",
+          "id": "7cae9762-4366-4f9d-8324-d751df9f0a6c",
           "name": "Get Authenticated User",
           "request": {
             "description": {
@@ -153,7 +153,7 @@
           "event": []
         },
         {
-          "id": "19d1df71-3ff6-43e7-bcc1-46ea6ba52fd6",
+          "id": "f496baec-03b0-4444-a33a-77382513bdbb",
           "name": "Change Password",
           "request": {
             "description": {
@@ -205,12 +205,683 @@
         }
       ],
       "event": []
+    },
+    {
+      "id": "2b2ef3de-275b-445d-b91d-5cf3937a4240",
+      "name": "Characters Collection Endpoint",
+      "description": {
+        "content": "Characters / User Game Biodata API Collection",
+        "type": "text/plain"
+      },
+      "item": [
+        {
+          "id": "94200fef-a934-404a-bb44-8284a3c1e71e",
+          "name": "Get User Characters",
+          "request": {
+            "description": {
+              "content": "Get User Characters",
+              "type": "text/plain"
+            },
+            "url": {
+              "protocol": "http",
+              "port": "5000",
+              "path": [
+                "api",
+                "characters"
+              ],
+              "host": [
+                "localhost"
+              ],
+              "query": [],
+              "variable": []
+            },
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "cache-control",
+                "value": "no-cache"
+              }
+            ],
+            "method": "GET",
+            "auth": {
+              "type": "bearer",
+              "bearer": [
+                {
+                  "type": "any",
+                  "value": "{{token}}",
+                  "key": "token"
+                }
+              ]
+            }
+          },
+          "response": [],
+          "event": []
+        },
+        {
+          "id": "439f5686-9e10-44a0-b6cb-31257ff0cf56",
+          "name": "Create Character",
+          "request": {
+            "description": {
+              "content": "Create Character",
+              "type": "text/plain"
+            },
+            "url": {
+              "protocol": "http",
+              "port": "5000",
+              "path": [
+                "api",
+                "characters"
+              ],
+              "host": [
+                "localhost"
+              ],
+              "query": [],
+              "variable": []
+            },
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "cache-control",
+                "value": "no-cache"
+              }
+            ],
+            "method": "POST",
+            "body": {
+              "mode": "raw",
+              "raw": "{\"nickname\":\"raprmdn\",\"race\":\"Human\",\"type\":\"Fighter\",\"gender\":\"Male\"}"
+            },
+            "auth": {
+              "type": "bearer",
+              "bearer": [
+                {
+                  "type": "any",
+                  "value": "{{token}}",
+                  "key": "token"
+                }
+              ]
+            }
+          },
+          "response": [],
+          "event": []
+        },
+        {
+          "id": "867966ed-4f9f-493b-92c4-0966d9963792",
+          "name": "Change Character Nickname",
+          "request": {
+            "description": {
+              "content": "Change Character Nickname",
+              "type": "text/plain"
+            },
+            "url": {
+              "protocol": "http",
+              "port": 5000,
+              "path": [
+                "api",
+                "characters",
+                ":nickname",
+                "change-nickname"
+              ],
+              "host": [
+                "localhost"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "type": "any",
+                  "value": "raprmdn",
+                  "key": "nickname"
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "cache-control",
+                "value": "no-cache"
+              }
+            ],
+            "method": "PATCH",
+            "body": {
+              "mode": "raw",
+              "raw": "{\"id\":1,\"nickname\":\"raprmdn\"}"
+            },
+            "auth": {
+              "type": "bearer",
+              "bearer": [
+                {
+                  "type": "any",
+                  "value": "{{token}}",
+                  "key": "token"
+                }
+              ]
+            }
+          },
+          "response": [],
+          "event": []
+        },
+        {
+          "id": "ad280987-78f1-4d2a-bf81-39785a9c104d",
+          "name": "Character Join Guild",
+          "request": {
+            "description": {
+              "content": "Character Join Guild",
+              "type": "text/plain"
+            },
+            "url": {
+              "protocol": "http",
+              "port": 5000,
+              "path": [
+                "api",
+                "characters",
+                ":nickname",
+                "join-guild"
+              ],
+              "host": [
+                "localhost"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "type": "any",
+                  "value": "raprmdn",
+                  "key": "nickname"
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "cache-control",
+                "value": "no-cache"
+              }
+            ],
+            "method": "PATCH",
+            "body": {
+              "mode": "raw",
+              "raw": "{\"id\":1,\"guild\":\"MixMax\"}"
+            },
+            "auth": {
+              "type": "bearer",
+              "bearer": [
+                {
+                  "type": "any",
+                  "value": "{{token}}",
+                  "key": "token"
+                }
+              ]
+            }
+          },
+          "response": [],
+          "event": []
+        },
+        {
+          "id": "414146aa-a648-47b3-8729-118b0f6b02f7",
+          "name": "Character Change Guild",
+          "request": {
+            "description": {
+              "content": "Character Change Guild",
+              "type": "text/plain"
+            },
+            "url": {
+              "protocol": "http",
+              "port": 5000,
+              "path": [
+                "api",
+                "characters",
+                ":nickname",
+                "change-guild"
+              ],
+              "host": [
+                "localhost"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "type": "any",
+                  "value": "raprmdn",
+                  "key": "nickname"
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "cache-control",
+                "value": "no-cache"
+              }
+            ],
+            "method": "PATCH",
+            "body": {
+              "mode": "raw",
+              "raw": "{\"id\":1,\"guild\":\"Coalition\"}"
+            },
+            "auth": {
+              "type": "bearer",
+              "bearer": [
+                {
+                  "type": "any",
+                  "value": "{{token}}",
+                  "key": "token"
+                }
+              ]
+            }
+          },
+          "response": [],
+          "event": []
+        },
+        {
+          "id": "3f15b7e9-6a29-4694-8ab7-92d9b1379ad1",
+          "name": "Character Leave Guild",
+          "request": {
+            "description": {
+              "content": "Character Leave Guild",
+              "type": "text/plain"
+            },
+            "url": {
+              "protocol": "http",
+              "port": 5000,
+              "path": [
+                "api",
+                "characters",
+                ":nickname",
+                "leave-guild"
+              ],
+              "host": [
+                "localhost"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "type": "any",
+                  "value": "raprmdn",
+                  "key": "nickname"
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "cache-control",
+                "value": "no-cache"
+              }
+            ],
+            "method": "DELETE",
+            "auth": {
+              "type": "bearer",
+              "bearer": [
+                {
+                  "type": "any",
+                  "value": "{{token}}",
+                  "key": "token"
+                }
+              ]
+            }
+          },
+          "response": [],
+          "event": []
+        },
+        {
+          "id": "18bb7a63-7258-4c9e-b011-c1af9c1ff29c",
+          "name": "Character Join Family",
+          "request": {
+            "description": {
+              "content": "Character Join Family",
+              "type": "text/plain"
+            },
+            "url": {
+              "protocol": "http",
+              "port": 5000,
+              "path": [
+                "api",
+                "characters",
+                ":nickname",
+                "join-family"
+              ],
+              "host": [
+                "localhost"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "type": "any",
+                  "value": "raprmdn",
+                  "key": "nickname"
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "cache-control",
+                "value": "no-cache"
+              }
+            ],
+            "method": "PATCH",
+            "body": {
+              "mode": "raw",
+              "raw": "{\"id\":1,\"family\":\"Ragnarok\"}"
+            },
+            "auth": {
+              "type": "bearer",
+              "bearer": [
+                {
+                  "type": "any",
+                  "value": "{{token}}",
+                  "key": "token"
+                }
+              ]
+            }
+          },
+          "response": [],
+          "event": []
+        },
+        {
+          "id": "f8779106-0f0f-4028-b911-cb35a443f3e7",
+          "name": "Character Change Family",
+          "request": {
+            "description": {
+              "content": "Character Change Family",
+              "type": "text/plain"
+            },
+            "url": {
+              "protocol": "http",
+              "port": 5000,
+              "path": [
+                "api",
+                "characters",
+                ":nickname",
+                "change-family"
+              ],
+              "host": [
+                "localhost"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "type": "any",
+                  "value": "raprmdn",
+                  "key": "nickname"
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "cache-control",
+                "value": "no-cache"
+              }
+            ],
+            "method": "PATCH",
+            "body": {
+              "mode": "raw",
+              "raw": "{\"id\":1,\"family\":\"Crusade\"}"
+            },
+            "auth": {
+              "type": "bearer",
+              "bearer": [
+                {
+                  "type": "any",
+                  "value": "{{token}}",
+                  "key": "token"
+                }
+              ]
+            }
+          },
+          "response": [],
+          "event": []
+        },
+        {
+          "id": "1e3f99ef-e97c-44dc-b97a-87edcc5fd016",
+          "name": "Character Leave Family",
+          "request": {
+            "description": {
+              "content": "Character Leave Family",
+              "type": "text/plain"
+            },
+            "url": {
+              "protocol": "http",
+              "port": 5000,
+              "path": [
+                "api",
+                "characters",
+                ":nickname",
+                "leave-family"
+              ],
+              "host": [
+                "localhost"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "type": "any",
+                  "value": "raprmdn",
+                  "key": "nickname"
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "cache-control",
+                "value": "no-cache"
+              }
+            ],
+            "method": "DELETE",
+            "auth": {
+              "type": "bearer",
+              "bearer": [
+                {
+                  "type": "any",
+                  "value": "{{token}}",
+                  "key": "token"
+                }
+              ]
+            }
+          },
+          "response": [],
+          "event": []
+        },
+        {
+          "id": "cdca3d7e-339e-4b86-9ade-8fc057800753",
+          "name": "Character Gained Exp",
+          "request": {
+            "description": {
+              "content": "Character Gained Exp",
+              "type": "text/plain"
+            },
+            "url": {
+              "protocol": "http",
+              "port": 5000,
+              "path": [
+                "api",
+                "characters",
+                ":nickname",
+                "gained-exp"
+              ],
+              "host": [
+                "localhost"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "type": "any",
+                  "value": "raprmdn",
+                  "key": "nickname"
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "cache-control",
+                "value": "no-cache"
+              }
+            ],
+            "method": "PATCH",
+            "body": {
+              "mode": "raw",
+              "raw": "{\"id\":1,\"gained_exp\":35000}"
+            },
+            "auth": {
+              "type": "bearer",
+              "bearer": [
+                {
+                  "type": "any",
+                  "value": "{{token}}",
+                  "key": "token"
+                }
+              ]
+            }
+          },
+          "response": [],
+          "event": []
+        },
+        {
+          "id": "1c8b0863-2e94-4963-aa5d-ab58e4f8743a",
+          "name": "Character Level Up",
+          "request": {
+            "description": {
+              "content": "Character Level Up",
+              "type": "text/plain"
+            },
+            "url": {
+              "protocol": "http",
+              "port": 5000,
+              "path": [
+                "api",
+                "characters",
+                ":nickname",
+                "level-up"
+              ],
+              "host": [
+                "localhost"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "type": "any",
+                  "value": "raprmdn",
+                  "key": "nickname"
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "cache-control",
+                "value": "no-cache"
+              }
+            ],
+            "method": "PATCH",
+            "auth": {
+              "type": "bearer",
+              "bearer": [
+                {
+                  "type": "any",
+                  "value": "{{token}}",
+                  "key": "token"
+                }
+              ]
+            }
+          },
+          "response": [],
+          "event": []
+        },
+        {
+          "id": "39ce56d8-cbfc-4215-9692-c82460bf6e34",
+          "name": "User Delete Character",
+          "request": {
+            "description": {
+              "content": "User Delete Character",
+              "type": "text/plain"
+            },
+            "url": {
+              "protocol": "http",
+              "port": 5000,
+              "path": [
+                "api",
+                "characters",
+                ":nickname",
+                "delete-character"
+              ],
+              "host": [
+                "localhost"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "type": "any",
+                  "value": "raprmdn",
+                  "key": "nickname"
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "cache-control",
+                "value": "no-cache"
+              }
+            ],
+            "method": "DELETE",
+            "auth": {
+              "type": "bearer",
+              "bearer": [
+                {
+                  "type": "any",
+                  "value": "{{token}}",
+                  "key": "token"
+                }
+              ]
+            }
+          },
+          "response": [],
+          "event": []
+        }
+      ],
+      "event": []
     }
   ],
   "event": [],
   "variable": [],
   "info": {
-    "_postman_id": "2b732b40-eeb1-42f1-addb-2bd8255e23b6",
+    "_postman_id": "fcc66ecd-436f-4d59-b6bf-59aa88186e91",
     "name": "Binar Challenge - ExpressJS RESTful API CRUD - Postman Collection - Chapter 5",
     "version": {
       "raw": "1.0.0",
