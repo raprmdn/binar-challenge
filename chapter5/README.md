@@ -4,7 +4,7 @@
 
 ## Postman Collection API Documentation
 Generate Postman Collection API:
-- Import file `collection.js` to Postman.
+- Import file `collection.json` to Postman.
 
 Optional:
 ```bash
