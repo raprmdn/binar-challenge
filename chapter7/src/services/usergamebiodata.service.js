@@ -80,7 +80,6 @@ module.exports = {
 
         if (!character) throw {status: 404, message: "Character not found"};
         if (character.id !== attr.id) throw {status: 400, message: "Character id is not valid"};
-        if (character.userId !== auth.id) throw {status: 403, message: "You are not allowed to change this character's nickname"};
 
         return await character.update({ nickname: attr.nickname });
     },
@@ -125,7 +124,6 @@ module.exports = {
 
         if (!character) throw {status: 404, message: "Character not found"};
         if (character.id !== attr.id) throw {status: 400, message: "Character id is not valid"};
-        if (character.userId !== auth.id) throw {status: 403, message: "You are not allowed to change this character's exp"};
 
         return await character.update({ experience: parseInt(character.experience) + attr.gained_exp });
     },
@@ -133,7 +131,6 @@ module.exports = {
         const character = await UserGameBiodata.findOne({where: {nickname: params.nickname}})
 
         if (!character) throw {status: 404, message: "Character not found"};
-        if (character.userId !== auth.id) throw {status: 403, message: "You are not allowed to change this character's level"};
 
         return await character.update({ level: parseInt(character.level) + 1 });
     },
@@ -143,7 +140,6 @@ module.exports = {
 
         const character = await UserGameBiodata.findOne({where: {nickname: params.nickname}})
         if (!character) throw {status: 404, message: "Character not found"};
-        if (character.userId !== user.id) throw {status: 403, message: "You are not allowed to delete this character"};
 
         return await character.destroy();
     }
