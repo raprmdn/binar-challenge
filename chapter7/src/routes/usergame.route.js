@@ -20,5 +20,7 @@ router.post('/logout', authentication, (req, res) => {
 
 router.get('/google', UserGameController.googleLogin);
 router.get('/google/callback', UserGameController.googleLoginCallback);
+router.get('/facebook', UserGameController.facebookLogin);
+router.get('/facebook/callback', UserGameController.facebookLoginCallback);
 
 module.exports = router;

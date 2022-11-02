@@ -1,7 +1,12 @@
 const { UserGame } = require('../models');
 const bcrypt = require("bcrypt");
 const { generateToken } = require("../utils/jwt.utils");
-const { googleGenerateUrl } = require('../utils/oauth.utils');
+const {
+    googleGenerateUrl,
+    facebookGenerateUrl,
+    facebookGetOAuthAccessToken,
+    facebookGetOAuthProfile
+} = require('../utils/oauth.utils');
 const { google } = require('../config/oauth.config');
 const { generateOAuthUsername, generateOAuthPassword } = require('../helpers/oauth.helper');
 
@@ -69,7 +74,8 @@ module.exports = {
                 email: payload.email,
                 password,
                 provider: 'google',
-                provider_id: payload.sub
+                provider_id: payload.sub,
+                avatar: payload.picture,
             });
 
             const token = generateToken(newUser);
@@ -90,5 +96,49 @@ module.exports = {
         user.password = undefined;
 
         return { user, token, oauth2_details: payload };
+    },
+    facebookLogin: () => {
+        return facebookGenerateUrl();
+    },
+    facebookLoginCallback: async (req) => {
+        const { code } = req.query;
+        if (!code) throw { status: 400, success: false, message: 'Failed authenticated facebook account' }
+
+        const { data } = await facebookGetOAuthAccessToken(code);
+        const response = await facebookGetOAuthProfile(data.access_token);
+
+        const user = await UserGame.findOne({ where: { email: response.data.email } });
+        if (!user) {
+           const username = generateOAuthUsername(response.data.name);
+           const password = await generateOAuthPassword(response.data.email);
+
+           const newUser = await UserGame.create({
+               name: response.data.name,
+               username,
+               email: response.data.email,
+               password,
+               provider: 'facebook',
+               provider_id: response.data.id,
+               avatar: response.data.picture.data.url,
+           });
+
+            const token = generateToken(newUser);
+            newUser.password = undefined;
+
+            return { user: newUser, token, oauth2_details: response.data };
+        }
+
+        if (user.provider !== 'facebook') {
+            throw {
+                status: 409,
+                success: false,
+                message: 'Failed to authenticated user, the email has already related to another account'
+            };
+        }
+
+        const token = generateToken(user);
+        user.password = undefined;
+
+        return { user, token, oauth2_details: response.data };
     },
 };

@@ -1,5 +1,5 @@
 const UserGameService = require('../services/usergame.service');
-const {response} = require("../utils/response.utils");
+const { response } = require("../utils/response.utils");
 
 module.exports = {
     register: async (req, res) => {
@@ -49,5 +49,21 @@ module.exports = {
         } catch (err) {
             return response(res, err?.status || 500, false, err.message);
         }
-    }
+    },
+    facebookLogin: async (req, res) => {
+        try {
+            const oauth_url = await UserGameService.facebookLogin();
+            return response(res, 200, true, "Facebook login url retrieved successfully", { oauth_url });
+        } catch (err) {
+            return response(res, err?.status || 500, false, err.message);
+        }
+    },
+    facebookLoginCallback: async (req, res) => {
+        try {
+            const serviceResponse = await UserGameService.facebookLoginCallback(req);
+            return response(res, 200, true, "Facebook login callback retrieved successfully", serviceResponse);
+        } catch (err) {
+            return response(res, err?.status || err?.response?.status || 500, false, err?.response?.headers['www-authenticate'] || err.message);
+        }
+    },
 };
