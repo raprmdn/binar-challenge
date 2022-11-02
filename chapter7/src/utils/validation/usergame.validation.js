@@ -16,10 +16,11 @@ module.exports = {
     registerValidation: async (req, res, next) => {
         const schema = Joi.object({
             name: Joi.string().max(255).required().label("Name"),
-            username: Joi.string().max(25).alphanum().required().label("Username")
+            username: Joi.string().max(25).regex(/^[a-zA-Z0-9-_]+$/).required().label("Username")
                 .external(async (value) => {
                     return await existsJoiValidation.isUsernameExists(value);
-                }),
+                })
+                .options({ messages: { 'string.pattern.base': 'Username must only contains alphanumeric, dash, and underscore' } }),
             email: Joi.string().email().required().label("Email")
                 .external(async (value) => {
                     return await existsJoiValidation.isEmailExists(value);

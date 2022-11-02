@@ -51,6 +51,24 @@ module.exports = (sequelize, DataTypes) => {
         password: {
             type: DataTypes.STRING,
             allowNull: false
+        },
+        provider: {
+            type: DataTypes.STRING,
+            allowNull: true,
+            defaultValue: 'local',
+        },
+        provider_id: {
+            type: DataTypes.STRING,
+            allowNull: true,
+        },
+        role: {
+            type: DataTypes.STRING,
+            allowNull: false,
+            defaultValue: 'user',
+        },
+        avatar: {
+            type: DataTypes.STRING,
+            allowNull: true,
         }
     }, {
         sequelize,

@@ -18,4 +18,7 @@ router.post('/logout', authentication, (req, res) => {
     return response(res, 200, true, "Logged out successfully");
 });
 
+router.get('/google', UserGameController.googleLogin);
+router.get('/google/callback', UserGameController.googleLoginCallback);
+
 module.exports = router;

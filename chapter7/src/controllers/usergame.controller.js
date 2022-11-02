@@ -33,5 +33,21 @@ module.exports = {
         } catch (err) {
             return response(res, err?.status || 500, false, err.message);
         }
+    },
+    googleLogin: async (req, res) => {
+        try {
+            const oauth_url = await UserGameService.googleLogin();
+            return response(res, 200, true, "Google login url retrieved successfully", { oauth_url });
+        } catch (err) {
+            return response(res, err?.status || 500, false, err.message);
+        }
+    },
+    googleLoginCallback: async (req, res) => {
+        try {
+            const serviceResponse = await UserGameService.googleLoginCallback(req);
+            return response(res, 200, true, "Google login callback retrieved successfully", serviceResponse);
+        } catch (err) {
+            return response(res, err?.status || 500, false, err.message);
+        }
     }
 };
