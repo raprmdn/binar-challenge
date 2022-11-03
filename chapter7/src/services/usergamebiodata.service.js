@@ -1,5 +1,6 @@
 const {UserGameBiodata, UserGame} = require('../models');
 const {Sequelize} = require("sequelize");
+const fs = require("fs");
 
 const BASE_HP = 3000;
 const BASE_MANA = 1500;
@@ -48,30 +49,29 @@ const customizeCharacter = (race, type) => {
 
 module.exports = {
     getUserCharacters: async (auth) => {
-        const user = await UserGame.findByPk(auth.id, {
-            include: {
-                model: UserGameBiodata,
-                as: "biodata",
-                attributes: {
-                    exclude: ["createdAt", "updatedAt", "userId"]
-                }
+        const user = await UserGame.findByPk(auth.id);
+        if (!user) throw { status: 404, message: "User not found" }
+
+        return await UserGameBiodata.findAndCountAll({
+            where: {
+                userId: user.id
             },
             attributes: {
-                include: [[Sequelize.fn('COUNT', Sequelize.col('biodata.id')), 'total_characters']]
-            },
-            group: ["UserGame.id", "biodata.id"]
+                exclude: ['createdAt', 'updatedAt', 'userId']
+            }
         });
-        if (!user) throw {status: 404, message: "User not found"};
-
-        return user;
     },
-    createNewCharacter: async (attr, auth) => {
-        const user = await UserGame.findByPk(auth.id);
-        if (!user) throw {status: 404, message: "User not found"};
+    createNewCharacter: async (req) => {
+        const { id } = req.user;
+        const attr = req.body;
+
+        const user = await UserGame.findByPk(id);
+        if (!user) throw { status: 404, message: "User not found" };
 
         const {totalHealth: health, totalMana: mana} = customizeCharacter(attr.race, attr.type)
         attr.health = health;
         attr.mana = mana;
+        attr.avatar = req.file?.filename;
 
         return await user.createBiodata(attr);
     },
@@ -142,5 +142,19 @@ module.exports = {
         if (!character) throw {status: 404, message: "Character not found"};
 
         return await character.destroy();
+    },
+    uploadOrUpdateAvatar: async (req) => {
+        const { id } = req.user;
+        const user = await UserGame.findByPk(id);
+        if (!user) throw { status: 404, message: "User not found" }
+
+        const { nickname } = req.params;
+        const character = await UserGameBiodata.findOne({ where: { nickname } });
+        if (!character) throw { status: 404, message: "Character not found" }
+        if (character.userId !== user.id) throw { status: 403, message: "You are not allowed to change this character's avatar" }
+
+        if (character.avatar) fs.unlinkSync(`./storage/images/characters/${character.avatar}`);
+
+        return await character.update({ avatar: req.file?.filename });
     }
-}
+};

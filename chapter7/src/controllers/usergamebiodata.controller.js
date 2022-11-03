@@ -1,13 +1,14 @@
 const UserGameBiodataService = require('../services/usergamebiodata.service');
 const {response} = require("../utils/response.utils");
+const { removeUploadedFile } = require("../helpers/image.helper");
 
 module.exports = {
     getUserCharacters: async (req, res) => {
         try {
             const characters = await UserGameBiodataService.getUserCharacters(req.user);
-            return response(res, 200, true, "Characters retrieved successfully", {
-                total_characters: characters.toJSON().total_characters,
-                characters: characters.biodata
+            return response(res, 200, true, 'User characters retrieved successfully.', {
+                total_characters: characters.count,
+                characters: characters.rows
             });
         } catch (err) {
             return response(res, 500, false, err.message);
@@ -15,9 +16,10 @@ module.exports = {
     },
     createNewCharacter: async (req, res) => {
         try {
-            const character = await UserGameBiodataService.createNewCharacter(req.body, req.user);
-            return response(res, 201, true, "Character created successfully", {character});
+            const character = await UserGameBiodataService.createNewCharacter(req);
+            return response(res, 201, true, "Character created successfully", { character });
         } catch (err) {
+            removeUploadedFile(req.file);
             return response(res, err?.status || 500, false, err.message);
         }
     },
@@ -128,5 +130,13 @@ module.exports = {
         } catch (err) {
             return response(res, err?.status || 500, false, err.message);
         }
+    },
+    uploadOrUpdateAvatar: async (req, res) => {
+        try {
+            await UserGameBiodataService.uploadOrUpdateAvatar(req);
+            return response(res, 200, true, "Avatar uploaded successfully");
+        } catch (err) {
+            return response(res, err?.status || 500, false, err.message);
+        }
     }
-}
+};

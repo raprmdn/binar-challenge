@@ -2,6 +2,8 @@
 const {
     Model
 } = require('sequelize');
+const { getAvatarCharacterUrl } = require("../helpers/image.helper");
+
 module.exports = (sequelize, DataTypes) => {
     class UserGameBiodata extends Model {
         /**
@@ -68,7 +70,13 @@ module.exports = (sequelize, DataTypes) => {
             allowNull: false,
             defaultValue: 0
         },
-        avatar: DataTypes.STRING
+        avatar: DataTypes.STRING,
+        avatarUrl: {
+            type: DataTypes.VIRTUAL,
+            get() {
+                return this.avatar ? getAvatarCharacterUrl(this.avatar) : null;
+            }
+        }
     }, {
         sequelize,
         modelName: 'UserGameBiodata',

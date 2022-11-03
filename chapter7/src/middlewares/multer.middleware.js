@@ -28,6 +28,7 @@ const upload = (path) => multer({
 });
 
 const userAvatar = upload('users').single('avatar');
+const characterAvatar = upload('characters').single('avatar');
 
 module.exports = {
     uploadUserAvatar: (req, res, next) => {
@@ -45,5 +46,21 @@ module.exports = {
 
             next();
         });
+    },
+    uploadCharacterAvatar: async (req, res, next) => {
+        characterAvatar(req, res, (err) => {
+            if (err) {
+                return res.status(422).json({
+                    status: 422,
+                    success: false,
+                    message: 'The given data was invalid.',
+                    errors: {
+                        avatar: err.message
+                    }
+                });
+            }
+
+            next();
+        })
     }
 };
