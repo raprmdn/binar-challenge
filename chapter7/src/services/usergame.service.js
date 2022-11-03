@@ -9,13 +9,15 @@ const {
 } = require('../utils/oauth.utils');
 const { google } = require('../config/oauth.config');
 const { generateOAuthUsername, generateOAuthPassword } = require('../helpers/oauth.helper');
+const fs = require("fs");
 
 module.exports = {
-    register: async (attr) => {
-        const { name, username, email, password } = attr;
+    register: async (req) => {
+        const { name, username, email, password } = req.body;
+        const avatar = req.file?.filename;
         const hashedPassword = await bcrypt.hash(password, 10);
 
-        return await UserGame.create({ name, username, email, password: hashedPassword });
+        return await UserGame.create({ name, username, email, password: hashedPassword, avatar });
     },
     login: async (attr) => {
         const { email, password } = attr;
@@ -28,13 +30,21 @@ module.exports = {
 
         const token = generateToken(user);
 
-        return { id: user.id, name: user.name, username: user.username, email: user.email, token };
+        return {
+            id: user.id, name: user.name, username: user.username,
+            email: user.email, provider: user.provider, avatar: user.avatarUrl,
+            role: user.role, token
+        };
     },
     me: async (user) => {
         const auth = await UserGame.findByPk(user.id);
         if (!auth) throw { status: 404, message: "User not found" };
 
-        return { id: auth.id, name: auth.name, username: auth.username, email: auth.email };
+        return {
+            id: auth.id, name: auth.name, username: auth.username,
+            email: auth.email, provider: auth.provider, avatar: auth.avatarUrl,
+            role: auth.role
+        };
     },
     changePassword: async (user, attr) => {
         const auth = await UserGame.findByPk(user.id);
@@ -46,6 +56,18 @@ module.exports = {
 
         const hashedPassword = await bcrypt.hash(new_password, 10);
         return await auth.update({ password: hashedPassword });
+    },
+    uploadOrUpdateAvatar: async (req) => {
+        const { id } = req.user;
+        const avatar = req.file?.filename;
+
+        const user = await UserGame.findByPk(id);
+        if (!user) throw { status: 404, success: false, message: "User not found" };
+
+        const localAvatar = user.avatar && fs.existsSync(`./storage/images/users/${user.avatar}`);
+        if (localAvatar) fs.unlinkSync(`./storage/images/users/${user.avatar}`);
+
+        return await user.update({ avatar });
     },
     googleLogin: async () => {
         return googleGenerateUrl();

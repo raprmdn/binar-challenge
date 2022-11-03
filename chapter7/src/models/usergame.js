@@ -2,6 +2,9 @@
 const {
     Model
 } = require('sequelize');
+const { getAvatarUserUrl } = require('../helpers/image.helper');
+const fs = require('fs');
+
 module.exports = (sequelize, DataTypes) => {
     class UserGame extends Model {
         /**
@@ -72,7 +75,16 @@ module.exports = (sequelize, DataTypes) => {
         }
     }, {
         sequelize,
-        modelName: 'UserGame'
+        modelName: 'UserGame',
+        getterMethods: {
+            avatarUrl() {
+                const localAvatar = this.avatar && fs.existsSync(`./storage/images/users/${this.avatar}`);
+                if (this.provider !== 'local' && !localAvatar)
+                    return this.avatar;
+
+                return this.avatar ? getAvatarUserUrl(this.avatar) : null;
+            }
+        }
     });
     return UserGame;
 };

@@ -8,6 +8,8 @@ const routes = require('./routes');
 const app = express();
 const port = process.env.PORT || 5000;
 
+app.use('/storage', express.static('storage'));
+
 app.use(compression());
 app.use(helmet());
 app.use(morgan('dev'));

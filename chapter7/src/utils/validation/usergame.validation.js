@@ -1,7 +1,8 @@
 const Joi = require('joi');
 const passwordComplexity = require('joi-password-complexity');
-const {responseValidationError} = require("../response.utils");
+const { responseValidationError } = require('../response.utils');
 const existsJoiValidation = require('../../helpers/existsJoiValidation.helper');
+const { removeUploadedFile } = require('../../helpers/image.helper');
 
 const options = {
     errors: {
@@ -28,13 +29,15 @@ module.exports = {
             password: passwordComplexity().required().label("Password"),
             password_confirmation: Joi.string().required().valid(Joi.ref('password'))
                 .label("Password Confirmation")
-                .options({messages: {'any.only': '{{#label}} does not match'}})
+                .options({messages: {'any.only': '{{#label}} does not match'}}),
+            avatar: Joi.any(),
         });
 
         try {
             await schema.validateAsync(req.body, options);
             next();
         } catch (err) {
+            removeUploadedFile(req.file);
             return responseValidationError(res, err);
         }
     },

@@ -1,12 +1,14 @@
 const UserGameService = require('../services/usergame.service');
 const { response } = require("../utils/response.utils");
+const { removeUploadedFile } = require("../helpers/image.helper");
 
 module.exports = {
     register: async (req, res) => {
         try {
-            await UserGameService.register(req.body);
+            await UserGameService.register(req);
             return response(res, 201, true, "User registered successfully");
         } catch (err) {
+            removeUploadedFile(req.file);
             return response(res, 500, false, err.message);
         }
     },
@@ -32,6 +34,15 @@ module.exports = {
             return response(res, 200, true, "Password changed successfully");
         } catch (err) {
             return response(res, err?.status || 500, false, err.message);
+        }
+    },
+    uploadOrUpdateAvatar: async (req, res) => {
+        try {
+            await UserGameService.uploadOrUpdateAvatar(req);
+            return response(res, 200, true, "Avatar uploaded successfully");
+        } catch (err) {
+            removeUploadedFile(req.file);
+            return response(res, err?.status || 500, false, err.message, err.errors);
         }
     },
     googleLogin: async (req, res) => {
