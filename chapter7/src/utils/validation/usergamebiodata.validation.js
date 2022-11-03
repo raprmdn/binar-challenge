@@ -1,6 +1,7 @@
 const Joi = require('joi');
-const {responseValidationError} = require("../response.utils");
+const { responseValidationError } = require("../response.utils");
 const existsJoiValidation = require('../../helpers/existsJoiValidation.helper');
+const { removeUploadedFile } = require("../../helpers/image.helper");
 
 const options = {
     errors: {
@@ -28,6 +29,7 @@ module.exports = {
             await schema.validateAsync(req.body, options);
             next();
         } catch (err) {
+            removeUploadedFile(req.file);
             return responseValidationError(res, err);
         }
     },
