@@ -136,6 +136,7 @@ module.exports = {
             await UserGameBiodataService.uploadOrUpdateAvatar(req);
             return response(res, 200, true, "Avatar uploaded successfully");
         } catch (err) {
+            removeUploadedFile(req.file);
             return response(res, err?.status || 500, false, err.message);
         }
     }

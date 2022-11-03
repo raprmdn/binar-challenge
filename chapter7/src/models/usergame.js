@@ -72,12 +72,10 @@ module.exports = (sequelize, DataTypes) => {
         avatar: {
             type: DataTypes.STRING,
             allowNull: true,
-        }
-    }, {
-        sequelize,
-        modelName: 'UserGame',
-        getterMethods: {
-            avatarUrl() {
+        },
+        avatarUrl: {
+            type: DataTypes.VIRTUAL,
+            get() {
                 const localAvatar = this.avatar && fs.existsSync(`./storage/images/users/${this.avatar}`);
                 if (this.provider !== 'local' && !localAvatar)
                     return this.avatar;
@@ -85,6 +83,9 @@ module.exports = (sequelize, DataTypes) => {
                 return this.avatar ? getAvatarUserUrl(this.avatar) : null;
             }
         }
+    }, {
+        sequelize,
+        modelName: 'UserGame',
     });
     return UserGame;
 };
