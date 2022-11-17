@@ -1,5 +1,6 @@
 const { UserGame } = require('../models');
 const bcrypt = require("bcrypt");
+const fs = require("fs");
 const { generateToken } = require("../utils/jwt.utils");
 const {
     googleGenerateUrl,
@@ -9,15 +10,18 @@ const {
 } = require('../utils/oauth.utils');
 const { google } = require('../config/oauth.config');
 const { generateOAuthUsername, generateOAuthPassword } = require('../helpers/oauth.helper');
-const fs = require("fs");
+const { registerWelcomeEmailNotification } = require("../helpers/mail.helper");
 
 module.exports = {
     register: async (req) => {
         const { name, username, email, password } = req.body;
         const avatar = req.file?.filename;
         const hashedPassword = await bcrypt.hash(password, 10);
+        const user = await UserGame.create({ name, username, email, password: hashedPassword, avatar });
 
-        return await UserGame.create({ name, username, email, password: hashedPassword, avatar });
+        if (user) await registerWelcomeEmailNotification(user);
+
+        return user;
     },
     login: async (attr) => {
         const { email, password } = attr;
@@ -103,6 +107,8 @@ module.exports = {
             const token = generateToken(newUser);
             newUser.password = undefined;
 
+            if (newUser) await registerWelcomeEmailNotification(newUser);
+
             return { user: newUser, token, oauth2_details: payload };
         }
 
@@ -146,6 +152,8 @@ module.exports = {
 
             const token = generateToken(newUser);
             newUser.password = undefined;
+
+            if (newUser) await registerWelcomeEmailNotification(newUser);
 
             return { user: newUser, token, oauth2_details: response.data };
         }
