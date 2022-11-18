@@ -65,5 +65,30 @@ module.exports = {
         if (error) return responseValidationError(res, error);
 
         next();
+    },
+    forgotPasswordValidation: (req, res, next) => {
+        const schema = Joi.object({
+            email: Joi.string().email().required().label("Email"),
+        });
+
+        const { error } = schema.validate(req.body, options);
+        if (error) return responseValidationError(res, error);
+
+        next();
+    },
+    resetPasswordValidation: (req, res, next) => {
+        const schema = Joi.object({
+            email: Joi.string().email().required().label("Email"),
+            otp: Joi.number().required().label("OTP"),
+            password: passwordComplexity().required().label("Password"),
+            password_confirmation: Joi.string().required().valid(Joi.ref('password'))
+                .label("Password Confirmation")
+                .options({messages: {'any.only': '{{#label}} does not match'}})
+        });
+
+        const { error } = schema.validate(req.body, options);
+        if (error) return responseValidationError(res, error);
+
+        next();
     }
 };

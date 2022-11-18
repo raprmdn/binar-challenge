@@ -36,6 +36,22 @@ module.exports = {
             return response(res, err?.status || 500, false, err.message);
         }
     },
+    forgotPassword: async (req, res) => {
+        try {
+            await UserGameService.forgotPassword(req);
+            return response(res, 200, true, "OTP has been sent to your email");
+        } catch (err) {
+            return response(res, err?.status || 500, false, err.message);
+        }
+    },
+    resetPassword: async (req, res) => {
+        try {
+            await UserGameService.resetPassword(req);
+            return response(res, 200, true, "Password reset successfully");
+        } catch (err) {
+            return response(res, err?.status || 500, false, err.message);
+        }
+    },
     uploadOrUpdateAvatar: async (req, res) => {
         try {
             await UserGameService.uploadOrUpdateAvatar(req);

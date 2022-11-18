@@ -40,5 +40,15 @@ module.exports = {
         const orderInvoiceEJS = await ejs.renderFile(path.join(__dirname, '../templates/order-invoice.ejs'), { data });
         sendEmail(user.email, 'Order Invoice', orderInvoiceEJS)
             .then(() => console.info(`Successfully sent order invoice email to ${user.email}`));
+    },
+    sendOTPEmailNotification: async (user, otp) => {
+        const data = {
+            user: user.name,
+            otp,
+        };
+
+        const sendingOTPEJS = await ejs.renderFile(path.join(__dirname, '../templates/otp.ejs'), { data });
+        sendEmail(user.email, 'Reset Password OTP', sendingOTPEJS)
+            .then(() => console.info(`Successfully sent sending otp email to ${user.email}`));
     }
 }

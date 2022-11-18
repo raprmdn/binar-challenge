@@ -1,4 +1,4 @@
-const { UserGame } = require('../models');
+const { UserGame, OTP } = require('../models');
 const bcrypt = require("bcrypt");
 const fs = require("fs");
 const { generateToken } = require("../utils/jwt.utils");
@@ -10,7 +10,7 @@ const {
 } = require('../utils/oauth.utils');
 const { google } = require('../config/oauth.config');
 const { generateOAuthUsername, generateOAuthPassword } = require('../helpers/oauth.helper');
-const { registerWelcomeEmailNotification } = require("../helpers/mail.helper");
+const { registerWelcomeEmailNotification, sendOTPEmailNotification } = require('../helpers/mail.helper');
 
 module.exports = {
     register: async (req) => {
@@ -60,6 +60,49 @@ module.exports = {
 
         const hashedPassword = await bcrypt.hash(new_password, 10);
         return await auth.update({ password: hashedPassword });
+    },
+    forgotPassword: async (req) => {
+        const { email } = req.body;
+
+        const user = await UserGame.findOne({ where: { email } });
+        if (!user) return true;
+
+        const userHasOTP = await OTP.findOne({ where: { email: user.email } });
+        if (userHasOTP) await userHasOTP.destroy();
+
+        const otpNumber = Math.floor(100000 + Math.random() * 900000);
+        const hashedOTP = await bcrypt.hash(otpNumber.toString(), 10);
+
+        await OTP.create({
+            email: user.email,
+            otp: hashedOTP,
+            expirationTime: 10,
+        });
+        await sendOTPEmailNotification(user, otpNumber);
+
+        return true;
+    },
+    resetPassword: async (req) => {
+        const { email, otp, password } = req.body;
+
+        const user = await UserGame.findOne({ where: { email } });
+        if (!user) throw { status: 404, message: 'User not found' };
+
+        const userOTP = await OTP.findOne({ where: { email: user.email } });
+        if (!userOTP) throw { status: 400, message: 'Invalid or Expired OTP Code' };
+        if (userOTP.expirationTime <= new Date()) {
+            await userOTP.destroy();
+            throw { status: 400, message: 'Invalid or Expired OTP Code' };
+        }
+
+        const isMatchOTP = await bcrypt.compare(otp.toString(), userOTP.otp);
+        if (!isMatchOTP) throw { status: 400, message: 'Invalid or Expired OTP Code' };
+
+        const hashedPassword = await bcrypt.hash(password, 10);
+        await user.update({ password: hashedPassword });
+        await userOTP.destroy();
+
+        return true;
     },
     uploadOrUpdateAvatar: async (req) => {
         const { id } = req.user;

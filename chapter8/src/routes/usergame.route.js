@@ -3,7 +3,9 @@ const UserGameController = require('../controllers/usergame.controller');
 const {
     loginValidation,
     registerValidation,
-    changePasswordValidation
+    changePasswordValidation,
+    forgotPasswordValidation,
+    resetPasswordValidation,
 } = require("../utils/validation/usergame.validation");
 const { uploadAvatarValidation } = require("../utils/validation/upload.validation");
 const { authentication } = require("../middlewares/authentication.middleware");
@@ -19,6 +21,8 @@ router.patch('/change-password', authentication, changePasswordValidation, UserG
 router.post('/logout', authentication, (req, res) => {
     return response(res, 200, true, "Logged out successfully");
 });
+router.post('/forgot-password', forgotPasswordValidation, UserGameController.forgotPassword);
+router.put('/reset-password', resetPasswordValidation, UserGameController.resetPassword);
 
 router.get('/google', UserGameController.googleLogin);
 router.get('/google/callback', UserGameController.googleLoginCallback);
