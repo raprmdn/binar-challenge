@@ -5,6 +5,7 @@ const UserGameHistoryRouter = require('./usergamehistory.route');
 const { uploadRandomFile } = require("../middlewares/multer.middleware");
 const { authentication } = require("../middlewares/authentication.middleware");
 const { hasRoles } = require("../middlewares/authorization.middleware");
+const { orderInvoiceEmailNotification } = require("../helpers/mail.helper");
 
 const router = express.Router();
 
@@ -31,6 +32,16 @@ router.post('/upload/media', authentication, hasRoles('admin'), uploadRandomFile
         data: {
             file: req.file
         }
+    });
+});
+
+router.get('/order-invoice', authentication, async (req, res) => {
+    await orderInvoiceEmailNotification(req.user);
+
+    return res.status(200).json({
+        status: 200,
+        success: true,
+        message: 'Order invoice has been sent to your email.',
     });
 });
 

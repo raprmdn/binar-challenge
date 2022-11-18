@@ -28,20 +28,6 @@ app.get('/', (req, res) => {
     res.status(200).json({
         success: true,
         message: "Welcome to Chapter 8 - Binar Challenge - Nodemailer and Notification",
-        swagger_docs: {
-            message: "Not available yet",
-            url: null
-        },
-        simple_docs: {
-            message: "Please refer to the README.md file in the repository. (Navigate Link not working in GitLab)",
-            gitlab_url: "https://gitlab.com/raprmdn/binar-challenge/-/blob/master/chapter7/README.md",
-            github_url: "https://github.com/raprmdn/binar-challenge/blob/master/chapter7/README.md"
-        },
-        postman_collection_docs: {
-            message: "Postman Collection API Documentation",
-            generate_collection: "npm run generate:collection",
-            url: "https://documenter.getpostman.com/view/13401148/2s847MsBWh"
-        }
     });
 });
 
