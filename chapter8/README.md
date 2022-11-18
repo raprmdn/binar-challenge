@@ -1,11 +1,19 @@
-## Binar Chapter 7 - Challenge
+## Binar Chapter 8 - Challenge
 
-- ExpressJS - Google and Facebook OAuth2 Implementation, Role and Media Handling with multer.
+- ExpressJS - Nodemailer and Web Push Notification.
 
 Dependencies that used in this challenge:
 - [google-auth-library](https://www.npmjs.com/package/google-auth-library)
-- [multer](https://www.npmjs.com/package/multer)
-- [axios](https://www.npmjs.com/package/axios)
+- [nodemailer](https://www.npmjs.com/package/nodemailer)
+- [web-push](https://www.npmjs.com/package/web-push)
+
+Features that updated in this challenge:
+- [x] Send email using nodemailer with Gmail SMTP.
+  - send welcome email to new user after register.
+  - send email to user when user forgot password with OTP (One Time Password).
+  - send example email to user to get order information.
+- [x] Send push notification using web-push (web only).
+  - send web push notification to new user after register (register in web only).
 
 ## Installation
 
@@ -17,21 +25,54 @@ Before running the app, you need to configure the environment variables in ```.e
 <br/>
 
 Go to [Google Cloud Platform](https://console.cloud.google.com/) and create a new project. Then, go to [Google Cloud Platform Credentials](https://console.cloud.google.com/apis/credentials) and create a new OAuth Client ID. Copy the Client ID and Client Secret and paste it to ```.env``` file.
+
+To get the `GOOGLE_REFRESH_TOKEN` you need to run the app first. Then, go to [Google OAuth Playground](https://developers.google.com/oauthplayground/) and select the `https://mail.google.com/` scope.
+
+Click OAuth 2.0 Configuration icon on the top right corner and select Use your own OAuth credentials. Paste the Client ID and Client Secret that you copied before.
+
+Then, click the `Authorize APIs` button and login with your Google account. After that, click the `Exchange authorization code for tokens` button. Copy the `Refresh Token` and paste it to the `GOOGLE_REFRESH_TOKEN` in ```.env``` file.
+
+Make sure set the `GOOGLE_EMAIL` is the same email that you use to login to Google OAuth Playground.
+
 ```bash
 GOOGLE_CLIENT_ID=YOUR_GOOGLE_CLIENT_ID
 GOOGLE_CLIENT_SECRET=YOUR_GOOGLE_CLIENT_SECRET
 # You can change this to your own redirect URI. 
 # Make sure to change it in Google Cloud Platform Credentials as well.
 GOOGLE_REDIRECT_URI=http://localhost:5000/api/auth/google/callback
+# Setup for nodemailer
+GOOGLE_REFRESH_TOKEN=
+GOOGLE_EMAIL=
 ```
 
-Go to [Facebook for Developers](https://developers.facebook.com/) and create a new app. Then, go to [Facebook for Developers App Dashboard](https://developers.facebook.com/apps/) and create a new OAuth Client ID. Copy the Client ID and Client Secret and paste it to ```.env``` file.
+Get the `VAPID_PUBLIC_KEY` and `VAPID_PRIVATE_KEY` from [web-push](https://www.npmjs.com/package/web-push).
+
+Install the [web-push](https://www.npmjs.com/package/web-push) globally, with the following command:
 ```bash
-FACEBOOK_CLIENT_ID=YOUR_FACEBOOK_CLIENT_ID
-FACEBOOK_CLIENT_SECRET=YOUR_FACEBOOK_CLIENT_SECRET
-# You can change this to your own redirect URI. 
-# Make sure to change it in Facebook for Developers App Dashboard as well.
-FACEBOOK_REDIRECT_URI=http://localhost:5000/api/auth/facebook/callback
+npm install -g web-push
+```
+
+Then, run the following command to generate the `VAPID_PUBLIC_KEY` and `VAPID_PRIVATE_KEY`:
+```bash
+web-push generate-vapid-keys
+```
+
+Copy the `VAPID_PUBLIC_KEY` and `VAPID_PRIVATE_KEY` and paste it to the ```.env``` file.
+
+```bash
+# Setup for web push notification
+VAPID_PUBLIC_KEY=
+VAPID_PRIVATE_KEY=
+```
+
+Go to file `public/script.js` and change the `VAPID_PUBLIC_KEY` with the one that you copied before.
+
+```javascript
+// Line 23 - 26
+const subscription = await register.pushManager.subscribe({
+ userVisibleOnly: true,
+ applicationServerKey: '', // Change this with your VAPID_PUBLIC_KEY
+});
 ```
 
 ## Running the app
@@ -54,60 +95,25 @@ npm run dev
 
 ## Endpoint
 
-#### GET ```/api/auth/google``` - Sign In with Google
-#### GET ```/api/auth/google/callback``` - Callback after Sign In with Google
+#### GET ```/register``` - Sign Up Page
+
 <br/>
 
-#### GET ```/api/auth/facebook``` - Sign In with Facebook
-#### GET ```/api/auth/facebook/callback``` - Callback after Sign In with Facebook
+#### POST ```/api/auth/forgot-password``` - Request OTP Forgot Password
+##### Request Body: ```Content-Type: application/json```
+- email: ```string``` ```*required```
+
 <br/>
 
-####  POST ```/api/auth/register``` - Register User
-##### Request Body: ```Content-Type: multipart/form-data```
-- name: ```string```  ```*required```
-- username: ```string``` ```unique```  ```*required```
-- email: ```string``` ```unique``` ```*required```
+#### POST ```/api/auth/reset-password``` - Reset Password with OTP
+##### Request Body: ```Content-Type: application/json```
+- email: ```string``` ```*required```
+- otp: ```number``` ```*required```
 - password: ```string``` ```*required```
 - password_confirmation: ```string``` ```*required```
-- avatar: ```file: png, jpeg, gif, svg, webp``` ```max: 5MB```  ```*optional```
- <br/>
 
-#### PUT ```/api/auth/avatar``` - Update User Avatar
-##### Request Body: ```Content-Type: multipart/form-data```
-- avatar: ```file: png, jpeg, gif, svg, webp``` ```max: 5MB```  ```*required```
 <br/>
 
-#### PUT ```/api/characters/:nickname/avatar``` - Update User Character Avatar
-##### Request Body: ```Content-Type: multipart/form-data```
-- avatar: ```file: png, jpeg, gif, svg, webp``` ```max: 5MB```  ```*required```
-<br/>
-
-#### POST ```/api/upload/media``` - Random File Upload ```*admin```
-##### Request Body: ```Content-Type: multipart/form-data```
-- media: ```file: support any file type``` ```*required```
-<br/>
-
-####  PATCH ```/api/characters/:nickname/change-nickname``` - Change Character Nickname ```*admin```
-##### Request Header:
-- Authorization: ```Bearer <token>``` ```*required```
-##### Request Body: ```Content-Type: application/json```
-- id: ```integer``` ```*required```
-- nickname: ```string``` ```*required```
-<br/>
-
-####  PATCH ```/api/characters/:nickname/gained-exp``` - Gained Characters Experience ```*admin```
-##### Request Header:
-- Authorization: ```Bearer <token>``` ```*required```
-##### Request Body: ```Content-Type: application/json```
-- id: ```integer``` ```*required```
-- gained_exp ```integer``` ```*required```
-<br/>
-
-####  PATCH ```/api/characters/:nickname/level-up``` - Level Up Character ```*admin```
-##### Request Header:
-- Authorization: ```Bearer <token>``` ```*required```
-<br/>
-
-####  DELETE ```/api/characters/:nickname/delete-character``` - Delete Character User ```*admin```
+#### GET ```/api/order-invoice``` - Get Example Order Invoice Email
 ##### Request Header:
 - Authorization: ```Bearer <token>``` ```*required```

@@ -11,3 +11,4 @@
 - Challenge - Chapter 5 - Postman Collection API Documentation: [GitLab](https://gitlab.com/raprmdn/binar-challenge/-/tree/master/chapter5) / [GitHub](https://github.com/raprmdn/binar-challenge/tree/master/chapter5)
 - Challenge - Chapter 6 - Unit Test & Integration Test: [GitLab](https://gitlab.com/raprmdn/binar-challenge/-/tree/master/chapter6) / [GitHub](https://github.com/raprmdn/binar-chapter6)
 - Challenge - Chapter 7 - OAuth2 Implementation and Media Handling: [GitLab](https://gitlab.com/raprmdn/binar-challenge/-/tree/master/chapter7) / [GitHub](https://github.com/raprmdn/binar-challenge/tree/master/chapter7)
+- Challenge - Chapter 8 - Nodemailer & Web Push Notification: [GitLab](https://gitlab.com/raprmdn/binar-challenge/-/tree/master/chapter8) / [GitHub](https://github.com/raprmdn/binar-challenge/tree/master/chapter8)
