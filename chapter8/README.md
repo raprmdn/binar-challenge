@@ -105,7 +105,7 @@ npm run dev
 
 <br/>
 
-#### POST ```/api/auth/reset-password``` - Reset Password with OTP
+#### PUT ```/api/auth/reset-password``` - Reset Password with OTP
 ##### Request Body: ```Content-Type: application/json```
 - email: ```string``` ```*required```
 - otp: ```number``` ```*required```
